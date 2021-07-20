@@ -5,7 +5,8 @@ package main
 import "fmt"
 
 func main() {
-	var a string = `Raw string`
+	var a string = `Raw 
+		"useless" string`
 
 	fmt.Println(a)
 }
