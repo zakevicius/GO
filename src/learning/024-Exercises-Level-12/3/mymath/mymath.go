@@ -1,3 +1,4 @@
+// Package mymath does math
 package mymath
 
 import "sort"

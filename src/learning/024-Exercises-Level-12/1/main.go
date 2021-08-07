@@ -5,7 +5,7 @@
 // 	- coverage shown in web browser
 // 	- examples shown in documentation in a web browser
 
-package starting_code
+package main
 
 import (
 	"example.com/exercises-level-12/1/dog"
