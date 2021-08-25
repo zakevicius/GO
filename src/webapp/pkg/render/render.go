@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"webapp/pkg/config"
+	"webapp/pkg/models"
 )
 
 var functions = template.FuncMap{}
@@ -18,8 +19,12 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+	return td
+}
+
 // RenderTemplate parse a template by file name and renders it
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	// get the template cache from app config
 	var templateCache map[string]*template.Template
 
@@ -36,7 +41,9 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	buf := new(bytes.Buffer)
 
-	_ = templateToRender.Execute(buf, nil)
+	td = AddDefaultData(td)
+
+	_ = templateToRender.Execute(buf, td)
 
 	_, err := buf.WriteTo(w)
 	if err != nil {
