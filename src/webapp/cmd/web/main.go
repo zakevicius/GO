@@ -29,10 +29,20 @@ func main() {
 	render.NewTemplates(&app)
 
 	// routes
-	http.HandleFunc("/", handlers.Repo.Home)
-	http.HandleFunc("/about", handlers.Repo.About)
+	//http.HandleFunc("/", handlers.Repo.Home)
+	//http.HandleFunc("/about", handlers.Repo.About)
 
 	fmt.Printf("Starting application on port %s\n", port)
 	// listen for requests
-	_ = http.ListenAndServe(port, nil)
+	//_ = http.ListenAndServe(port, nil)
+
+	srv := &http.Server{
+		Addr:    port,
+		Handler: routes(&app),
+	}
+
+	err = srv.ListenAndServe()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
