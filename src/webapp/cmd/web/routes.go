@@ -27,6 +27,9 @@ func routes(app *config.AppConfig) http.Handler {
 	// using CSRF middleware
 	mux.Use(NoSurf)
 
+	// session loading
+	mux.Use(SessionLoad)
+
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
 

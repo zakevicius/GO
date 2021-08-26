@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/alexedwards/scs/v2"
 	"log"
 	"net/http"
+	"time"
 	"webapp/pkg/config"
 	"webapp/pkg/handlers"
 	"webapp/pkg/render"
@@ -11,9 +13,22 @@ import (
 
 const port = ":8080"
 
+var app config.AppConfig
+var session *scs.SessionManager
+
 // main is the main application function
 func main() {
-	var app config.AppConfig
+	// change to true if in production
+	app.InProduction = false
+
+	// init session
+	session = scs.New()
+	session.Lifetime = 24 * time.Hour
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = app.InProduction
+
+	app.Session = session
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
