@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"net/http"
-	"webapp/pkg/config"
-	"webapp/pkg/models"
-	"webapp/pkg/render"
+	"bookings/pkg/config"
+	"bookings/pkg/models"
+	"bookings/pkg/render"
 )
 
 // Repo the repository used by the handlers

@@ -1,14 +1,14 @@
 package main
 
 import (
+	"bookings/pkg/config"
+	"bookings/pkg/handlers"
+	"bookings/pkg/render"
 	"fmt"
 	"github.com/alexedwards/scs/v2"
 	"log"
 	"net/http"
 	"time"
-	"bookings/pkg/config"
-	"bookings/pkg/handlers"
-	"bookings/pkg/render"
 )
 
 const port = ":8080"
