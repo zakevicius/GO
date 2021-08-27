@@ -9,29 +9,24 @@ import (
 )
 
 func routes(app *config.AppConfig) http.Handler {
-	// Using PAT
-	//mux := pat.New()
-	//
-	//mux.Get("/", http.HandlerFunc(handlers.Repo.Home))
-	//mux.Get("/about", http.HandlerFunc(handlers.Repo.About))
-
-	// Using CHI
 	mux := chi.NewRouter()
 
-	// with middlewares
 	mux.Use(middleware.Recoverer)
-
-	// custom middleware
-	// mux.Use(WriteToConsole)
-
-	// using CSRF middleware
 	mux.Use(NoSurf)
-
-	// session loading
 	mux.Use(SessionLoad)
 
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
 
+	mux.Handle("/static/*", FileServer())
+
+	//mux.Get("/static/*", func (w http.ResponseWriter, r *http.Request) {
+	//	fmt.Println(r)
+	//})
+
 	return mux
+}
+
+func FileServer(a ...interface{}) http.Handler {
+	return http.StripPrefix("/static", http.FileServer(http.Dir("../../static/")))
 }
