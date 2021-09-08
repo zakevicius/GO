@@ -14,15 +14,9 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Use(middleware.Recoverer)
 	mux.Use(NoSurf)
 	mux.Use(SessionLoad)
-
 	mux.Get("/", handlers.Repo.Home)
 	mux.Get("/about", handlers.Repo.About)
-
 	mux.Handle("/static/*", FileServer())
-
-	//mux.Get("/static/*", func (w http.ResponseWriter, r *http.Request) {
-	//	fmt.Println(r)
-	//})
 
 	return mux
 }
